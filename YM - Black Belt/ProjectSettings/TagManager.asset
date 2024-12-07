@@ -6,11 +6,12 @@ TagManager:
   tags:
   - CinemachineTarget
   - Cursor
+  - Terrain
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Terrain
   - Water
   - UI
   - 
