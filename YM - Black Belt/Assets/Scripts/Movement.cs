@@ -7,10 +7,11 @@ public class Movement : MonoBehaviour
     private float speed;
     public GameObject player;
    
-    public bool isJumping;
+    public bool grounded;
     private float jumpForce;
     private Rigidbody rb;
     private RaycastHit hit;
+    //private float maxSpeed;
     
 
     void Start()
@@ -18,16 +19,24 @@ public class Movement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         speed = 10;
         jumpForce = 10;
+        //grounded = true;
 
     }
 
     void Update()
     {
-
+        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * 2, Color.red);
         if (Input.GetKey(KeyCode.W))
         {
 
             player.transform.Translate(Vector3.forward * speed * Time.deltaTime);
+
+            //rb.AddForce(Vector3.forward * speed);
+
+            //if (rb.velocity.magnitude > maxSpeed)
+            //{
+            //    Vector3.ClampMagnitude(Vector3.forward, maxSpeed);
+            //}
 
         }
 
@@ -36,12 +45,18 @@ public class Movement : MonoBehaviour
 
             player.transform.Translate(Vector3.left * speed * Time.deltaTime);
 
+            //rb.AddForce(Vector3.left * speed * Time.deltaTime);
+
+
         }
 
         if (Input.GetKey(KeyCode.D))
         {
 
             player.transform.Translate(Vector3.right * speed * Time.deltaTime);
+
+            //rb.AddForce(Vector3.right * speed * Time.deltaTime);
+
 
         }
 
@@ -50,49 +65,50 @@ public class Movement : MonoBehaviour
 
             player.transform.Translate(Vector3.back * speed * Time.deltaTime);
 
+            //rb.AddForce(Vector3.back * speed * Time.deltaTime);
+
+
+
         }
 
         if (Input.GetKey(KeyCode.Space))
         {
-            if(!isJumping)
-            {
-                Vector3 velocity = rb.velocity;
-                velocity.y = jumpForce;
-                rb.velocity = velocity;
-
-                isJumping = true;
-            }
-            else
-            {
-                return;
-            }
+            Jump();
         }
 
 
     }
-        
-    //private void Jump()
-    //{
-    //    Physics.Raycast(player.transform.position, transform.TransformDirection(Vector3.down), out hit, 100f, LayerMask.GetMask("Terrain"));
 
-
-    //    if (hit.collider) 
-    //    {
-    //        isJumping = false;
-    //    }
-    //}
-
-    private bool GroundCheck()
+    private void Jump()
     {
-        Physics.Raycast(transform.position, Vector3.down, out hit, 10f, LayerMask.GetMask("Terrain"));
-
-        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * 10, Color.red);
-
-
-        if (hit.collider)
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 2f, LayerMask.GetMask("Terrain")))
         {
-            isJumping = false;
+            Debug.Log("1");
+            grounded = true;
         }
+        else
+        {
+            Debug.Log("2");
+            grounded = false;
+        }
+
+        if (grounded == true)
+        {
+            Debug.Log("3");
+            Vector3 velocity = rb.velocity;
+            velocity.y = jumpForce;
+            rb.velocity = velocity;
+
+            grounded = false;
+        }
+        else
+        {
+            Debug.Log("4");
+            return;
+        }
+
+
     }
 
 }
