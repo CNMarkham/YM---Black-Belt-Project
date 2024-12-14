@@ -4,22 +4,26 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    private float speed;
+    public float speed;
     public GameObject player;
+    private Vector3 velocity;
+    
    
     public bool grounded;
     private float jumpForce;
     private Rigidbody rb;
     private RaycastHit hit;
-    //private float maxSpeed;
-    
+    private float maxSpeed;
+
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        speed = 10;
+        speed = 20;
         jumpForce = 10;
-        //grounded = true;
+        grounded = true;
+        maxSpeed = 10;
+
 
     }
 
@@ -28,47 +32,67 @@ public class Movement : MonoBehaviour
         Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * 2, Color.red);
         if (Input.GetKey(KeyCode.W))
         {
+            Vector3 velocity = rb.velocity;
 
-            player.transform.Translate(Vector3.forward * speed * Time.deltaTime);
+            if (velocity.magnitude > maxSpeed)
+            {
+                velocity = Vector3.ClampMagnitude(velocity, maxSpeed);
+                rb.velocity = velocity;
+            }
+            rb.AddForce(transform.forward * speed);
 
-            //rb.AddForce(Vector3.forward * speed);
-
-            //if (rb.velocity.magnitude > maxSpeed)
-            //{
-            //    Vector3.ClampMagnitude(Vector3.forward, maxSpeed);
-            //}
+            Debug.Log(velocity);
 
         }
 
         if (Input.GetKey(KeyCode.A))
         {
 
-            player.transform.Translate(Vector3.left * speed * Time.deltaTime);
+            Vector3 velocity = rb.velocity;
 
-            //rb.AddForce(Vector3.left * speed * Time.deltaTime);
+            if (velocity.magnitude > maxSpeed)
+            {
+                velocity = Vector3.ClampMagnitude(velocity, maxSpeed);
+                rb.velocity = velocity;
+            }
+
+
+            rb.AddForce(-transform.right * speed);
+
+            Debug.Log(velocity);
 
 
         }
 
         if (Input.GetKey(KeyCode.D))
         {
+            Vector3 velocity = rb.velocity;
 
-            player.transform.Translate(Vector3.right * speed * Time.deltaTime);
-
-            //rb.AddForce(Vector3.right * speed * Time.deltaTime);
-
-
+            if (velocity.magnitude > maxSpeed)
+            {
+                velocity = Vector3.ClampMagnitude(velocity, maxSpeed);
+                rb.velocity = velocity;
+            }
+            
+            
+            rb.AddForce(transform.right * speed);
+            
+            Debug.Log(velocity);
         }
 
         if (Input.GetKey(KeyCode.S))
         {
 
-            player.transform.Translate(Vector3.back * speed * Time.deltaTime);
+            Vector3 velocity = rb.velocity;
 
-            //rb.AddForce(Vector3.back * speed * Time.deltaTime);
+            if (velocity.magnitude > maxSpeed)
+            {
+                velocity = Vector3.ClampMagnitude(velocity, maxSpeed);
+                rb.velocity = velocity;
+            }
+            rb.AddForce(-transform.forward * speed);
 
-
-
+            Debug.Log(velocity);
         }
 
         if (Input.GetKey(KeyCode.Space))
