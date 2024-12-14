@@ -108,18 +108,15 @@ public class Movement : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(transform.position, Vector3.down, out hit, 2f, LayerMask.GetMask("Terrain")))
         {
-            Debug.Log("1");
             grounded = true;
         }
         else
         {
-            Debug.Log("2");
             grounded = false;
         }
 
         if (grounded == true)
         {
-            Debug.Log("3");
             Vector3 velocity = rb.velocity;
             velocity.y = jumpForce;
             rb.velocity = velocity;
@@ -128,7 +125,6 @@ public class Movement : MonoBehaviour
         }
         else
         {
-            Debug.Log("4");
             return;
         }
 
