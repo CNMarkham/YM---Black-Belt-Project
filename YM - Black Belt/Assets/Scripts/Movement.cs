@@ -29,7 +29,10 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
+
+        //Drawing RayCast so we can see groundcheck (Jump)
         Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * 2, Color.red);
+
         if (Input.GetKey(KeyCode.W))
         {
             Vector3 velocity = rb.velocity;
