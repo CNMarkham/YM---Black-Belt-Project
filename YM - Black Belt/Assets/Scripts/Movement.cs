@@ -15,6 +15,13 @@ public class Movement : MonoBehaviour
     private RaycastHit hit;
     private float maxSpeed;
 
+    public int MaxStamina;
+    public int Stamina;
+    private bool StaminaToggle;
+
+
+    //public PlayerUI PlayerUI;
+
 
     void Start()
     {
@@ -24,28 +31,64 @@ public class Movement : MonoBehaviour
         grounded = true;
         maxSpeed = 10;
 
+        Stamina = 1000;
 
     }
 
     void Update()
     {
+        gameObject.GetComponent<PlayerUI>().Stamina = Stamina;
+        gameObject.GetComponent<PlayerUI>().MaxStamina = MaxStamina;
 
         //Drawing RayCast so we can see groundcheck (Jump)
         Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * 2, Color.red);
 
+        //Stamina Depletion as well as Stamina Toggle for Sprinting and Jumping Higher/Faster
+        if (Input.GetKey(KeyCode.LeftShift) && Stamina > 0)
+        {
+            StaminaToggle = true;
+        }
+        else
+        {
+            if (StaminaToggle)
+            {
+                //Use Coroutines here
+            }
+            StaminaToggle = false;
+        }
+        if(StaminaToggle)
+        {
+            maxSpeed = 20;
+            Stamina -= 1;
+            jumpForce = 20;
+        }
+        else
+        {
+            maxSpeed = 10;
+            jumpForce = 10;
+        }
+
+        if(Stamina <= 0)
+        {
+            
+        }
+
+
+        //Movement Keys
         if (Input.GetKey(KeyCode.W))
         {
-            Vector3 velocity = rb.velocity;
 
-            if (velocity.magnitude > maxSpeed)
-            {
-                velocity = Vector3.ClampMagnitude(velocity, maxSpeed);
-                rb.velocity = velocity;
-            }
-            rb.AddForce(transform.forward * speed);
+                Vector3 velocity = rb.velocity;
 
-            Debug.Log(velocity);
+                if (velocity.magnitude > maxSpeed)
+                {
+                    velocity = Vector3.ClampMagnitude(velocity, maxSpeed);
+                    rb.velocity = velocity;
+                }
+                rb.AddForce(transform.forward * speed);
 
+                Debug.Log(velocity);
+            
         }
 
         if (Input.GetKey(KeyCode.A))
@@ -133,5 +176,14 @@ public class Movement : MonoBehaviour
 
 
     }
+
+    //private void RegainStamina()
+    //{
+
+    //    if(Stamina <= MaxStamina)
+    //    {
+    //        Stamina = Stamina * 1.2;
+    //    }
+    //}
 
 }
