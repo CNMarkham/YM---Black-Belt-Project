@@ -19,9 +19,9 @@ public class Movement : MonoBehaviour
     public int Stamina;
     private bool StaminaToggle;
 
-
-    //public PlayerUI PlayerUI;
-
+    //private float SprintToggleTime;
+    //private float StaminaRegenTime;
+    //private float ElaspedTime;
 
     void Start()
     {
@@ -32,7 +32,19 @@ public class Movement : MonoBehaviour
         maxSpeed = 10;
 
         Stamina = 1000;
+        MaxStamina = 1000;
 
+    }
+
+    public IEnumerator StaminaRegen()
+    {
+        float delay = 2f;
+
+        while (Stamina < MaxStamina)
+        {
+            Stamina += 100;
+            yield return new WaitForSeconds(delay);
+        }
     }
 
     void Update()
@@ -41,22 +53,21 @@ public class Movement : MonoBehaviour
         gameObject.GetComponent<PlayerUI>().MaxStamina = MaxStamina;
 
         //Drawing RayCast so we can see groundcheck (Jump)
+
         Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * 2, Color.red);
 
         //Stamina Depletion as well as Stamina Toggle for Sprinting and Jumping Higher/Faster
+
         if (Input.GetKey(KeyCode.LeftShift) && Stamina > 0)
         {
             StaminaToggle = true;
         }
         else
         {
-            if (StaminaToggle)
-            {
-                //Use Coroutines here
-            }
             StaminaToggle = false;
         }
-        if(StaminaToggle)
+
+        if (StaminaToggle)
         {
             maxSpeed = 20;
             Stamina -= 1;
@@ -68,16 +79,9 @@ public class Movement : MonoBehaviour
             jumpForce = 10;
         }
 
-        if(Stamina <= 0)
-        {
-            
-        }
-
-
         //Movement Keys
         if (Input.GetKey(KeyCode.W))
         {
-
                 Vector3 velocity = rb.velocity;
 
                 if (velocity.magnitude > maxSpeed)
@@ -87,13 +91,11 @@ public class Movement : MonoBehaviour
                 }
                 rb.AddForce(transform.forward * speed);
 
-                Debug.Log(velocity);
-            
+                //Debug.Log(velocity);
         }
 
         if (Input.GetKey(KeyCode.A))
         {
-
             Vector3 velocity = rb.velocity;
 
             if (velocity.magnitude > maxSpeed)
@@ -102,12 +104,7 @@ public class Movement : MonoBehaviour
                 rb.velocity = velocity;
             }
 
-
             rb.AddForce(-transform.right * speed);
-
-            Debug.Log(velocity);
-
-
         }
 
         if (Input.GetKey(KeyCode.D))
@@ -120,15 +117,11 @@ public class Movement : MonoBehaviour
                 rb.velocity = velocity;
             }
             
-            
             rb.AddForce(transform.right * speed);
-            
-            Debug.Log(velocity);
         }
 
         if (Input.GetKey(KeyCode.S))
         {
-
             Vector3 velocity = rb.velocity;
 
             if (velocity.magnitude > maxSpeed)
@@ -136,9 +129,8 @@ public class Movement : MonoBehaviour
                 velocity = Vector3.ClampMagnitude(velocity, maxSpeed);
                 rb.velocity = velocity;
             }
-            rb.AddForce(-transform.forward * speed);
 
-            Debug.Log(velocity);
+            rb.AddForce(-transform.forward * speed);
         }
 
         if (Input.GetKey(KeyCode.Space))

@@ -31,9 +31,6 @@ public class PlayerUI : MonoBehaviour
     
     void Update()
     {
-        //Health -= 1;
-        
-
         HealthSlider.GetComponent<Slider>().value = Health;
         StaminaSlider.GetComponent<Slider>().value = Stamina;
 
@@ -42,7 +39,7 @@ public class PlayerUI : MonoBehaviour
 
         if(Health <= 0)
         {
-            SceneManager.LoadScene(0);
+            //SceneManager.LoadScene(0);
         }
 
     }
