@@ -8,7 +8,6 @@ public interface IInteractable
 
     public string itemDescription { get; }
 
-
     public void Pickup();
 
 }

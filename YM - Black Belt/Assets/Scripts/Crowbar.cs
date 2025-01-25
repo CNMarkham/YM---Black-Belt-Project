@@ -8,9 +8,8 @@ public class Crowbar : ItemDetails, IInteractable
 
     public string itemDescription => "A hefty weapon that can be used for self-defense.";
 
-    public Sprite ItemSprite { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public new Sprite ItemSprite { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
-    // public Sprite ItemSprite throw new System.NotImplementedException();
 
     public void Pickup()
     {

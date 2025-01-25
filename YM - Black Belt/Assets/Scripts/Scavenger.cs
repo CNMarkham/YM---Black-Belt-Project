@@ -21,8 +21,8 @@ public class Scavenger : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         DistanceTriggered = 50f;
 
-        maxSpeed = 20;
-        speed = 30;
+        maxSpeed = 10;
+        speed = 15;
     }
 
 
@@ -54,7 +54,6 @@ public class Scavenger : MonoBehaviour
 
         if (velocity.magnitude > maxSpeed)
         {
-            //velocity = Vector3.ClampMagnitude(velocity, maxSpeed);
             velocity.x = Mathf.Min(velocity.x, maxSpeed);
             velocity.y = Mathf.Min(velocity.y, 5);
             velocity.z = Mathf.Min(velocity.z, maxSpeed);
@@ -64,5 +63,8 @@ public class Scavenger : MonoBehaviour
 
         transform.LookAt(player.gameObject.transform, Vector3.up);
         rb.AddForce(transform.forward * speed, ForceMode.Impulse);
+
+
+        //Vector3.MoveTowards(gameObject.transform.position, player.gameObject.transform.position, 10f);
     }
 }

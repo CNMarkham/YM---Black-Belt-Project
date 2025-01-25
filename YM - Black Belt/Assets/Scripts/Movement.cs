@@ -18,10 +18,8 @@ public class Movement : MonoBehaviour
     public int MaxStamina;
     public int Stamina;
     private bool StaminaToggle;
+    private float StaminaRegenTime;
 
-    //private float SprintToggleTime;
-    //private float StaminaRegenTime;
-    //private float ElaspedTime;
 
     void Start()
     {
@@ -33,18 +31,6 @@ public class Movement : MonoBehaviour
 
         Stamina = 1000;
         MaxStamina = 1000;
-
-    }
-
-    public IEnumerator StaminaRegen()
-    {
-        float delay = 2f;
-
-        while (Stamina < MaxStamina)
-        {
-            Stamina += 100;
-            yield return new WaitForSeconds(delay);
-        }
     }
 
     void Update()
@@ -61,10 +47,21 @@ public class Movement : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift) && Stamina > 0)
         {
             StaminaToggle = true;
+            StaminaRegenTime = 0f;
         }
         else
         {
             StaminaToggle = false;
+            StaminaRegenTime += Time.deltaTime;
+            //Debug.Log(StaminaRegenTime);
+        }
+
+        if (Stamina < MaxStamina)
+        {
+            if(StaminaRegenTime >= 2.5f)
+            {
+                Stamina += 1;
+            }
         }
 
         if (StaminaToggle)
@@ -80,6 +77,7 @@ public class Movement : MonoBehaviour
         }
 
         //Movement Keys
+
         if (Input.GetKey(KeyCode.W))
         {
                 Vector3 velocity = rb.velocity;
@@ -168,14 +166,5 @@ public class Movement : MonoBehaviour
 
 
     }
-
-    //private void RegainStamina()
-    //{
-
-    //    if(Stamina <= MaxStamina)
-    //    {
-    //        Stamina = Stamina * 1.2;
-    //    }
-    //}
 
 }

@@ -3546,6 +3546,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: scavenger
       objectReference: {fileID: 0}
+    - target: {fileID: 2168068442106150883, guid: 4ba5cbea767d9b54eb7a655b769517da, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3588,7 +3592,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1744191222}
   serializedVersion: 4
-  m_Mass: 500
+  m_Mass: 150
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
