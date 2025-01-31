@@ -8,6 +8,7 @@ TagManager:
   - Cursor
   - Terrain
   - Object
+  - Monster
   layers:
   - Default
   - TransparentFX

@@ -17,6 +17,10 @@ public class Movement : MonoBehaviour
 
     public int MaxStamina;
     public int Stamina;
+
+    public int MaxHealth;
+    public int Health;
+
     private bool StaminaToggle;
     private float StaminaRegenTime;
 
@@ -31,12 +35,18 @@ public class Movement : MonoBehaviour
 
         Stamina = 1000;
         MaxStamina = 1000;
+
+        Health = 1000;
+        MaxHealth = 1000;
     }
 
     void Update()
     {
         gameObject.GetComponent<PlayerUI>().Stamina = Stamina;
         gameObject.GetComponent<PlayerUI>().MaxStamina = MaxStamina;
+
+        gameObject.GetComponent<PlayerUI>().Health = Health;
+        gameObject.GetComponent<PlayerUI>().MaxHealth = MaxHealth;
 
         //Drawing RayCast so we can see groundcheck (Jump)
 
@@ -142,14 +152,7 @@ public class Movement : MonoBehaviour
     private void Jump()
     {
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, 2f, LayerMask.GetMask("Terrain")))
-        {
-            grounded = true;
-        }
-        else
-        {
-            grounded = false;
-        }
+        grounded = (Physics.Raycast(transform.position, Vector3.down, out hit, 2f, LayerMask.GetMask("Terrain")));
 
         if (grounded == true)
         {
@@ -165,6 +168,14 @@ public class Movement : MonoBehaviour
         }
 
 
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "Mosnter")
+        {
+            Health -= 1;
+        }
     }
 
 }

@@ -11,6 +11,7 @@ public class Pickup : MonoBehaviour
     public Text ObjectName;
     public Text ObjectDescription;
     public Text ObjectPickupable;
+    public Text ObjectPrice;
     public GameObject ObjectBox;
 
     public Inventory Inventory;
@@ -22,6 +23,7 @@ public class Pickup : MonoBehaviour
         ObjectName.enabled = false;
         ObjectDescription.enabled = false;
         ObjectPickupable.enabled = false;
+        ObjectPrice.enabled = false;
         ObjectBox.SetActive(false);
     }
 
@@ -48,8 +50,10 @@ public class Pickup : MonoBehaviour
             ObjectDescription.enabled = true;
             ObjectPickupable.enabled = true;
             ObjectBox.SetActive(true);
+            ObjectPrice.enabled = true;
             ObjectName.text = "Object: " + ObjectDetected.collider.GetComponent<IInteractable>().itemName;
             ObjectDescription.text = "Description:                                                                     " + ObjectDetected.collider.GetComponent<IInteractable>().itemDescription;
+            ObjectPrice.text = "Price: $" + ObjectDetected.collider.GetComponent<IInteractable>().itemPrice;
         }
         else
         {
@@ -57,6 +61,7 @@ public class Pickup : MonoBehaviour
             ObjectDescription.enabled = false;
             ObjectPickupable.enabled = false;
             ObjectBox.SetActive(false);
+            ObjectPrice.enabled = false;    
         }
 
     }

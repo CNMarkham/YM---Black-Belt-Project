@@ -5,14 +5,18 @@ using UnityEngine;
 public class Scavenger : MonoBehaviour
 {
     public float DistanceTriggered;
+    public float DistanceAttackTriggered;
 
     public float DistanceToPlayer;
 
     public GameObject player;
     private bool MonsterAttracted;
+    private bool MonsterAttackAttracted;
 
     private float maxSpeed;
     private float speed;
+
+    private int Health;
 
     private Rigidbody rb;
 
@@ -20,17 +24,22 @@ public class Scavenger : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         DistanceTriggered = 50f;
+        DistanceAttackTriggered = 15f;
 
         maxSpeed = 10;
-        speed = 15;
+        speed = 10;
+
+        MonsterAttackAttracted = false;
+
+        Health = 100;
     }
 
 
     void Update()
     {
         DistanceToPlayer = Vector3.Distance(gameObject.transform.position, player.gameObject.transform.position);
-        
-        if(DistanceToPlayer <= DistanceTriggered)
+
+        if (DistanceToPlayer <= DistanceTriggered)
         {
             MonsterAttracted = true;
         }
@@ -39,7 +48,7 @@ public class Scavenger : MonoBehaviour
             MonsterAttracted = false;
         }
 
-        if(MonsterAttracted)
+        if (MonsterAttracted)
         {
             MoveTowardsPlayer();
         }
@@ -49,22 +58,19 @@ public class Scavenger : MonoBehaviour
 
     public void MoveTowardsPlayer()
     {
-
         Vector3 velocity = rb.velocity;
 
         if (velocity.magnitude > maxSpeed)
         {
-            velocity.x = Mathf.Min(velocity.x, maxSpeed);
-            velocity.y = Mathf.Min(velocity.y, 5);
-            velocity.z = Mathf.Min(velocity.z, maxSpeed);
+            velocity = Vector3.ClampMagnitude(velocity, maxSpeed);
             rb.velocity = velocity;
-
         }
 
-        transform.LookAt(player.gameObject.transform, Vector3.up);
-        rb.AddForce(transform.forward * speed, ForceMode.Impulse);
+        Vector3 TargetPosition = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
 
+        transform.LookAt(TargetPosition, Vector3.up);
 
-        //Vector3.MoveTowards(gameObject.transform.position, player.gameObject.transform.position, 10f);
+        rb.AddForce(transform.forward * speed);
     }
 }
+

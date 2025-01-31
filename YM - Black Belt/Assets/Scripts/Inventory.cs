@@ -1,23 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
-
     public GameObject[] InventorySlots;
     public GameObject[] Objects;
-    //public List<GameObject> Objects = new List<GameObject>();
 
     void Start()
     {
-        
+
     }
 
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            Objects[0].SetActive(true);
+            //Objects[0]
+        }
     }
 
     public bool AddtoInventory(GameObject ItemToAdd)

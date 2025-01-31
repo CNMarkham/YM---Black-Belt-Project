@@ -8,6 +8,10 @@ public interface IInteractable
 
     public string itemDescription { get; }
 
+    public int itemPrice { get;  }
+
+    public int itemDamage { get;  }
+
     public void Pickup();
 
 }
