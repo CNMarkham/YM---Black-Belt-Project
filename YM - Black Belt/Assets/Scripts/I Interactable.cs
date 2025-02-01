@@ -12,6 +12,12 @@ public interface IInteractable
 
     public int itemDamage { get;  }
 
+    public float xOffset { get;  }
+
+    public float yOffset { get; }
+
+    public float zOffset { get; }
+
     public void Pickup();
 
 }

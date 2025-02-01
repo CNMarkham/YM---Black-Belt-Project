@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Pickup : MonoBehaviour
 {   
     public GameObject Camera;
-
+    
     public Text ObjectName;
     public Text ObjectDescription;
     public Text ObjectPickupable;
@@ -15,6 +15,8 @@ public class Pickup : MonoBehaviour
     public GameObject ObjectBox;
 
     public Inventory Inventory;
+
+
     
 
 
@@ -40,6 +42,7 @@ public class Pickup : MonoBehaviour
                 if (Inventory.AddtoInventory(ObjectDetected.collider.gameObject))
                 {
                     ObjectDetected.collider.gameObject.SetActive(false);
+                    ObjectDetected.collider.gameObject.transform.parent = gameObject.transform;
                 }
             
                 
