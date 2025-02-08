@@ -42,6 +42,8 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
+        Debug.Log(grounded);
+
         gameObject.GetComponent<PlayerUI>().Stamina = Stamina;
         gameObject.GetComponent<PlayerUI>().MaxStamina = MaxStamina;
 
@@ -152,7 +154,14 @@ public class Movement : MonoBehaviour
     private void Jump()
     {
         RaycastHit hit;
-        grounded = (Physics.Raycast(transform.position, Vector3.down, out hit, 2f, LayerMask.GetMask("Terrain")));
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 2f, LayerMask.GetMask("Terrain")))
+        {
+            grounded = true;
+        }
+        else
+        {
+            grounded = false;
+        }
 
         if (grounded == true)
         {
@@ -168,14 +177,6 @@ public class Movement : MonoBehaviour
         }
 
 
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject.tag == "Mosnter")
-        {
-            Health -= 1;
-        }
     }
 
 }

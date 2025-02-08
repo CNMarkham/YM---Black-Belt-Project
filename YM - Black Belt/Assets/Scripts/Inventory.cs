@@ -29,9 +29,8 @@ public class Inventory : MonoBehaviour
             itemActive = true;
             itemcloned = Objects[0].gameObject;
             Objects[0].SetActive(true);
-            itemcloned.transform.localScale = new Vector3(itemcloned.transform.localScale.x, itemcloned.transform.localScale.y, itemcloned.transform.localScale.z)/2;
-            //itemcloned.transform.localRotation = Quaternion.Euler(-90, -90, 0);
-            //itemcloned.transform.position = new Vector3(gameObject.transform.position.x + itemcloned.gameObject.GetComponent<IInteractable>().xOffset, gameObject.transform.position.y, gameObject.transform.position.z + itemcloned.gameObject.GetComponent<IInteractable>().zOffset);
+            itemcloned.transform.rotation = Quaternion.Euler(0, 180, 90);
+            itemcloned.transform.position = new Vector3(gameObject.transform.position.x + itemcloned.gameObject.GetComponent<IInteractable>().xOffset, gameObject.transform.position.y + itemcloned.gameObject.GetComponent<IInteractable>().yOffset, gameObject.transform.position.z + itemcloned.gameObject.GetComponent<IInteractable>().zOffset);
         }
 
         else if(Input.GetKeyDown(KeyCode.Alpha1) && itemActive)
@@ -42,8 +41,7 @@ public class Inventory : MonoBehaviour
 
         if(itemActive)
         {
-            itemcloned.transform.position = new Vector3(gameObject.transform.position.x + itemcloned.gameObject.GetComponent<IInteractable>().xOffset, gameObject.transform.position.y + itemcloned.gameObject.GetComponent<IInteractable>().yOffset, gameObject.transform.position.z + itemcloned.gameObject.GetComponent<IInteractable>().zOffset);
-            itemcloned.transform.localRotation = Quaternion.Euler(0, 180, 90);
+            
         }
     }
 

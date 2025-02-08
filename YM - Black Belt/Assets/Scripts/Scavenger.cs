@@ -20,6 +20,8 @@ public class Scavenger : MonoBehaviour
 
     private Rigidbody rb;
 
+    Animator animator;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -32,6 +34,8 @@ public class Scavenger : MonoBehaviour
         MonsterAttackAttracted = false;
 
         Health = 100;
+
+        animator = GetComponent<Animator>();
     }
 
 
@@ -71,6 +75,18 @@ public class Scavenger : MonoBehaviour
         transform.LookAt(TargetPosition, Vector3.up);
 
         rb.AddForce(transform.forward * speed);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "Player")
+        {
+            animator.SetBool("TouchingPlayer", true);
+        }
+        else
+        {
+            animator.SetBool("TouchingPlayer", false);
+        }
     }
 }
 

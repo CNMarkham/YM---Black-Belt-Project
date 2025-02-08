@@ -14,6 +14,8 @@ public class Pickup : MonoBehaviour
     public Text ObjectPrice;
     public GameObject ObjectBox;
 
+    public GameObject orientation;
+
     public Inventory Inventory;
 
 
@@ -41,11 +43,12 @@ public class Pickup : MonoBehaviour
             {
                 if (Inventory.AddtoInventory(ObjectDetected.collider.gameObject))
                 {
+                    ObjectDetected.transform.localScale = new Vector3(ObjectDetected.transform.localScale.x, ObjectDetected.transform.localScale.y, ObjectDetected.transform.localScale.z) / 2;
                     ObjectDetected.collider.gameObject.SetActive(false);
-                    ObjectDetected.collider.gameObject.transform.parent = gameObject.transform;
+                    ObjectDetected.collider.gameObject.transform.parent = orientation.transform;
                 }
-            
-                
+
+
 
             }
 
