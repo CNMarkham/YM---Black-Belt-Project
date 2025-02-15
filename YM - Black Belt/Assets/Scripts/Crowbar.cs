@@ -15,7 +15,7 @@ public class Crowbar : ItemDetails, IInteractable
 
     public int itemDamage => 45;
 
-    public float xOffset => 1.5f;
+    public float xOffset => 0.75f;
 
     public float yOffset => 0.5f;
 

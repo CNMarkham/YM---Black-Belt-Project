@@ -11,10 +11,14 @@ public class Inventory : MonoBehaviour
 
     public GameObject itemcloned;
 
+    public GameObject campos;
+
+    public GameObject MainCamera;
 
     public bool itemActive;
 
     public Pickup Pickup;
+
 
 
     void Start()
@@ -28,20 +32,60 @@ public class Inventory : MonoBehaviour
         {
             itemActive = true;
             itemcloned = Objects[0].gameObject;
-            Objects[0].SetActive(true);
-            itemcloned.transform.rotation = Quaternion.Euler(0, 180, 90);
-            itemcloned.transform.position = new Vector3(gameObject.transform.position.x + itemcloned.gameObject.GetComponent<IInteractable>().xOffset, gameObject.transform.position.y + itemcloned.gameObject.GetComponent<IInteractable>().yOffset, gameObject.transform.position.z + itemcloned.gameObject.GetComponent<IInteractable>().zOffset);
+            itemcloned.SetActive(true);
+            itemcloned.transform.position = new Vector3(campos.transform.position.x, campos.transform.position.y, campos.transform.position.z);
         }
-
         else if(Input.GetKeyDown(KeyCode.Alpha1) && itemActive)
         {
             itemActive = false;
             itemcloned.SetActive(false);
         }
 
-        if(itemActive)
+        if (Input.GetKeyDown(KeyCode.Alpha2) && !itemActive)
         {
-            
+            itemActive = true;
+            itemcloned = Objects[1].gameObject;
+            itemcloned.SetActive(true);
+            itemcloned.transform.position = new Vector3(campos.transform.position.x, campos.transform.position.y, campos.transform.position.z);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2) && itemActive)
+        {
+            itemActive = false;
+            itemcloned.SetActive(false);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha3) && !itemActive)
+        {
+            itemActive = true;
+            itemcloned = Objects[2].gameObject;
+            itemcloned.SetActive(true);
+            itemcloned.transform.position = new Vector3(campos.transform.position.x, campos.transform.position.y, campos.transform.position.z);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3) && itemActive)
+        {
+            itemActive = false;
+            itemcloned.SetActive(false);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha4) && !itemActive)
+        {
+            itemActive = true;
+            itemcloned = Objects[3].gameObject;
+            itemcloned.SetActive(true);
+            itemcloned.transform.position = new Vector3(campos.transform.position.x, campos.transform.position.y, campos.transform.position.z);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4) && itemActive)
+        {
+            itemActive = false;
+            itemcloned.SetActive(false);
+        }
+
+
+
+
+        if (itemActive)
+        {
+            itemcloned.transform.localRotation = Quaternion.Euler(MainCamera.transform.localRotation.x, MainCamera.transform.localRotation.y + 180, MainCamera.transform.localRotation.z + 90);
         }
     }
 

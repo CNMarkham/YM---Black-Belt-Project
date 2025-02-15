@@ -14,7 +14,7 @@ public class Pickup : MonoBehaviour
     public Text ObjectPrice;
     public GameObject ObjectBox;
 
-    public GameObject orientation;
+    public GameObject orientation;  
 
     public Inventory Inventory;
 
