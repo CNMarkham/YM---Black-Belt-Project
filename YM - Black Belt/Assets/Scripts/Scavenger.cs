@@ -1,20 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Scavenger : MonoBehaviour
 {
     public float DistanceTriggered;
-    public float DistanceAttackTriggered;
 
     public float DistanceToPlayer;
 
     public GameObject player;
-    private bool MonsterAttracted;
-    private bool MonsterAttackAttracted;
 
-    private float maxSpeed;
-    private float speed;
+    private NavMeshAgent agent;
+
+    private bool MonsterAttracted;
+
+    //private float maxSpeed;
+    //private float speed;
 
     private int Health;
 
@@ -25,13 +27,9 @@ public class Scavenger : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        DistanceTriggered = 50f;
-        DistanceAttackTriggered = 15f;
+        DistanceTriggered = 35f;
 
-        maxSpeed = 10;
-        speed = 10;
-
-        MonsterAttackAttracted = false;
+        agent = GetComponent<NavMeshAgent>();
 
         Health = 100;
 
@@ -41,20 +39,28 @@ public class Scavenger : MonoBehaviour
 
     void Update()
     {
+        animator.SetFloat("PlayerRange", DistanceToPlayer);
+        Debug.Log(DistanceToPlayer);
+
         DistanceToPlayer = Vector3.Distance(gameObject.transform.position, player.gameObject.transform.position);
 
         if (DistanceToPlayer <= DistanceTriggered)
         {
             MonsterAttracted = true;
         }
-        else
+        else if(DistanceToPlayer >= DistanceTriggered)
         {
             MonsterAttracted = false;
         }
 
         if (MonsterAttracted)
         {
+            agent.speed = 14;
             MoveTowardsPlayer();
+        }
+        else if(!MonsterAttracted)
+        {
+            agent.speed = 0;
         }
 
 
@@ -62,29 +68,19 @@ public class Scavenger : MonoBehaviour
 
     public void MoveTowardsPlayer()
     {
-        Vector3 velocity = rb.velocity;
-
-        if (velocity.magnitude > maxSpeed)
-        {
-            velocity = Vector3.ClampMagnitude(velocity, maxSpeed);
-            rb.velocity = velocity;
-        }
-
-        Vector3 TargetPosition = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
-
-        transform.LookAt(TargetPosition, Vector3.up);
-
-        rb.AddForce(transform.forward * speed);
+        animator.SetFloat("Speed", agent.speed);
+        agent.destination = player.transform.position;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
+            agent.speed = 0;
             animator.SetBool("TouchingPlayer", true);
         }
         else
-        {
+        { 
             animator.SetBool("TouchingPlayer", false);
         }
     }

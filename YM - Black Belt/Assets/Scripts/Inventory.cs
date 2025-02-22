@@ -19,11 +19,17 @@ public class Inventory : MonoBehaviour
 
     public Pickup Pickup;
 
+    private bool LeftButtonClicked;
+
+    private Animator animator;
 
 
     void Start()
     {
         itemActive = false;
+
+        animator = GetComponent<Animator>();
+        
     }
 
     void Update()
@@ -34,6 +40,12 @@ public class Inventory : MonoBehaviour
             itemcloned = Objects[0].gameObject;
             itemcloned.SetActive(true);
             itemcloned.transform.position = new Vector3(campos.transform.position.x, campos.transform.position.y, campos.transform.position.z);
+
+            if(Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                LeftButtonClicked = true;
+            }
+            LeftButtonClicked = false;
         }
         else if(Input.GetKeyDown(KeyCode.Alpha1) && itemActive)
         {

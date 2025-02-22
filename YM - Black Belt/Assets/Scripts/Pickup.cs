@@ -47,9 +47,6 @@ public class Pickup : MonoBehaviour
                     ObjectDetected.collider.gameObject.SetActive(false);
                     ObjectDetected.collider.gameObject.transform.parent = orientation.transform;
                 }
-
-
-
             }
 
             ObjectName.enabled = true;
