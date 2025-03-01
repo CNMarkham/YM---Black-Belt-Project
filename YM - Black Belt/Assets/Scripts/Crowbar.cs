@@ -21,19 +21,36 @@ public class Crowbar : ItemDetails, IInteractable
 
     public float zOffset => 1.5f;
 
+    private Inventory Inventory;
+
+    public GameObject player;
+
+    [SerializeField] private Animator animator;
+    
+
     public void Pickup()
     {
 
         throw new System.NotImplementedException();
     }
 
-    void Start()
+
+    void Awake()
     {
-        
+        player = GameObject.FindGameObjectWithTag("Player");
+        Inventory = player.GetComponent<Inventory>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
     {
-        
+        if (Inventory.itemActive)
+        {
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                Debug.Log("MouseButtonClciked");
+                animator.SetTrigger("Attack");
+            }
+        }
     }
 }

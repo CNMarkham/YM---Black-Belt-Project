@@ -42,8 +42,6 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(grounded);
-
         gameObject.GetComponent<PlayerUI>().Stamina = Stamina;
         gameObject.GetComponent<PlayerUI>().MaxStamina = MaxStamina;
 

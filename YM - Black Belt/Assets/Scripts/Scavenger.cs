@@ -15,11 +15,6 @@ public class Scavenger : MonoBehaviour
 
     private bool MonsterAttracted;
 
-    //private float maxSpeed;
-    //private float speed;
-
-    private int Health;
-
     private Rigidbody rb;
 
     Animator animator;
@@ -30,8 +25,6 @@ public class Scavenger : MonoBehaviour
         DistanceTriggered = 35f;
 
         agent = GetComponent<NavMeshAgent>();
-
-        Health = 100;
 
         animator = GetComponent<Animator>();
     }
