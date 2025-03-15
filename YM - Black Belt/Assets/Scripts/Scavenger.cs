@@ -11,11 +11,15 @@ public class Scavenger : MonoBehaviour
 
     public GameObject player;
 
+    public PlayerUI PlayerUI;
+
     private NavMeshAgent agent;
 
     private bool MonsterAttracted;
 
     private Rigidbody rb;
+
+    public int Health;
 
     Animator animator;
 
@@ -23,6 +27,8 @@ public class Scavenger : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         DistanceTriggered = 35f;
+
+        Health = 1000;
 
         agent = GetComponent<NavMeshAgent>();
 
@@ -69,11 +75,14 @@ public class Scavenger : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            Debug.Log("Hit Player");
             agent.speed = 0;
             animator.SetBool("TouchingPlayer", true);
+            //PlayerUI.Health -= 25;
         }
         else
-        { 
+        {
+            Debug.Log("Not Player");
             animator.SetBool("TouchingPlayer", false);
         }
     }

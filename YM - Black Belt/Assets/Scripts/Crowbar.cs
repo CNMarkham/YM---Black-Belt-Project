@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Crowbar : ItemDetails, IInteractable
 {
@@ -24,6 +25,8 @@ public class Crowbar : ItemDetails, IInteractable
     private Inventory Inventory;
 
     public GameObject player;
+
+    public Scavenger scavenger;
 
     [SerializeField] private Animator animator;
     
@@ -49,8 +52,20 @@ public class Crowbar : ItemDetails, IInteractable
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
                 Debug.Log("MouseButtonClciked");
-                animator.SetTrigger("Attack");
+                Inventory.itemcloned.GetComponent<Animator>().SetTrigger("Attack");
+
+                //Inventory.itemcloned.transform.rotation = Quaternion.Euler(Inventory.MainCamera.transform.localRotation.x + 90, Inventory.MainCamera.transform.rotation.y + 180, Inventory.MainCamera.transform.rotation.z + 90);
             }
+        }   
+    }
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "Monster")
+        {
+            scavenger = GameObject.FindGameObjectWithTag("Monster").GetComponent<Scavenger>();
+            scavenger.Health -= 25;
         }
     }
 }
