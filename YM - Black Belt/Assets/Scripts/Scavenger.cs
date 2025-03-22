@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class Scavenger : MonoBehaviour
 {
@@ -11,11 +12,9 @@ public class Scavenger : MonoBehaviour
 
     public GameObject player;
 
-    public PlayerUI PlayerUI;
+    public Movement movement;
 
     private NavMeshAgent agent;
-
-    private bool MonsterAttracted;
 
     private Rigidbody rb;
 
@@ -23,12 +22,19 @@ public class Scavenger : MonoBehaviour
 
     Animator animator;
 
+    public GameObject ScavengerHealthSlider;
+
+    [SerializeField] private Camera camera;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+
         DistanceTriggered = 35f;
 
         Health = 1000;
+
+        ScavengerHealthSlider.GetComponent<Slider>().value = Health;
 
         agent = GetComponent<NavMeshAgent>();
 
@@ -38,26 +44,28 @@ public class Scavenger : MonoBehaviour
 
     void Update()
     {
+        ScavengerHealthSlider.transform.rotation = camera.transform.rotation;
+
+        ScavengerHealthSlider.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 8, gameObject.transform.position.z);
+
         animator.SetFloat("PlayerRange", DistanceToPlayer);
-        Debug.Log(DistanceToPlayer);
 
         DistanceToPlayer = Vector3.Distance(gameObject.transform.position, player.gameObject.transform.position);
 
         if (DistanceToPlayer <= DistanceTriggered)
         {
-            MonsterAttracted = true;
+            if(DistanceToPlayer <= 7f)
+            {
+                agent.speed = 0;
+                animator.SetBool("TouchingPlayer", true);
+            }
+            else
+            {
+                animator.SetBool("TouchingPlayer", false);
+                MoveTowardsPlayer();
+            }
         }
-        else if(DistanceToPlayer >= DistanceTriggered)
-        {
-            MonsterAttracted = false;
-        }
-
-        if (MonsterAttracted)
-        {
-            agent.speed = 14;
-            MoveTowardsPlayer();
-        }
-        else if(!MonsterAttracted)
+        else
         {
             agent.speed = 0;
         }
@@ -67,23 +75,17 @@ public class Scavenger : MonoBehaviour
 
     public void MoveTowardsPlayer()
     {
+        agent.speed = 14;
         animator.SetFloat("Speed", agent.speed);
         agent.destination = player.transform.position;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if(collision.gameObject.tag == "Player")
         {
             Debug.Log("Hit Player");
-            agent.speed = 0;
-            animator.SetBool("TouchingPlayer", true);
-            //PlayerUI.Health -= 25;
-        }
-        else
-        {
-            Debug.Log("Not Player");
-            animator.SetBool("TouchingPlayer", false);
+            movement.Health -= 25;
         }
     }
 }

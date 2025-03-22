@@ -52,9 +52,7 @@ public class Crowbar : ItemDetails, IInteractable
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
                 Debug.Log("MouseButtonClciked");
-                Inventory.itemcloned.GetComponent<Animator>().SetTrigger("Attack");
-
-                //Inventory.itemcloned.transform.rotation = Quaternion.Euler(Inventory.MainCamera.transform.localRotation.x + 90, Inventory.MainCamera.transform.rotation.y + 180, Inventory.MainCamera.transform.rotation.z + 90);
+                Inventory.itemcloned.GetComponentInChildren<Animator>().SetTrigger("Attack");
             }
         }   
     }
@@ -65,7 +63,9 @@ public class Crowbar : ItemDetails, IInteractable
         if(collision.gameObject.tag == "Monster")
         {
             scavenger = GameObject.FindGameObjectWithTag("Monster").GetComponent<Scavenger>();
-            scavenger.Health -= 25;
+            scavenger.Health -= 50;
+            Debug.Log(scavenger.Health);
+            scavenger.ScavengerHealthSlider.GetComponent<Slider>().value = scavenger.Health;
         }
     }
 }
