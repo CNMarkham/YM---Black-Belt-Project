@@ -28,6 +28,12 @@ public class Crowbar : ItemDetails, IInteractable
 
     public Scavenger scavenger;
 
+    public int ScavHealth;
+
+    public GameObject Camera;
+
+    private bool CrowbarAttack;
+
     [SerializeField] private Animator animator;
     
 
@@ -41,21 +47,79 @@ public class Crowbar : ItemDetails, IInteractable
     void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        scavenger = GameObject.FindGameObjectWithTag("Monster").GetComponent<Scavenger>();
+        ScavHealth = scavenger.Health;
         Inventory = player.GetComponent<Inventory>();
         animator = GetComponent<Animator>();
+        Camera = GameObject.FindGameObjectWithTag("MainCamera");
+        CrowbarAttack = false;
     }
 
-    void Update()
-    {
-        if (Inventory.itemActive)
-        {
-            if (Input.GetKeyDown(KeyCode.Mouse0))
-            {
-                Debug.Log("MouseButtonClciked");
-                Inventory.itemcloned.GetComponentInChildren<Animator>().SetTrigger("Attack");
-            }
-        }   
+    //IEnumerator CrowbarActive()
+    //{
+
+        //RaycastHit Attack;
+        //if (Physics.Raycast(Camera.transform.position, Camera.transform.forward, out Attack, 5.5f, LayerMask.GetMask("Monster")))
+        //{
+        //    //if(Input.GetKeyDown(KeyCode.Mouse0))
+        //    //{
+        //    //    CrowbarAttack = true;
+        //    //}
+        //    Inventory.itemcloned.GetComponentInChildren<Animator>().SetTrigger("Attack");
+        //    CrowbarAttack = true;
+        //    Debug.Log(CrowbarAttack);
+        //    ScavHealth -= 25;
+        //    Debug.Log(ScavHealth);
+        //    scavenger.ScavHealthSlider.GetComponent<Slider>().value = ScavHealth;
+        //    CrowbarAttack = false;
+        //}
+
+
+
+        //yield return new WaitForSeconds(10f);
+
+        //Debug.Log("Attacking");
+        //CrowbarAttack = true;
+        //yield return new WaitForSeconds(0.2f);
+        //CrowbarAttack = false;
+        //Debug.Log(CrowbarAttack);
+
     }
+
+    //void Update()
+    //{
+    //    Debug.Log(CrowbarAttack);
+    //    Debug.DrawRay(transform.transform.position, Camera.transform.forward * 5.5f, Color.red);
+    //    if (Inventory.itemActive)
+    //    {
+    //        if (Input.GetKeyDown(KeyCode.Mouse0) && !CrowbarAttack)
+    //        {
+    //            //StartCoroutine(CrowbarActive());
+    //        }
+    //            //{
+    //            //    CrowbarAttack = true;
+    //            //    //StartCoroutine(CrowbarActive());
+    //            //    Debug.Log(CrowbarAttack);
+    //            //    Inventory.itemcloned.GetComponentInChildren<Animator>().SetTrigger("Attack");
+    //            //    RaycastHit Attack;
+    //            //    if (Physics.Raycast(Camera.transform.position, Camera.transform.forward, out Attack, 5.5f, LayerMask.GetMask("Monster")))
+    //            //    {
+    //            //        //CrowbarAttack = true;
+    //            //        Debug.Log(CrowbarAttack);
+    //            //        ScavHealth -= 25;
+    //            //        Debug.Log(ScavHealth);
+    //            //        scavenger.ScavHealthSlider.GetComponent<Slider>().value = ScavHealth;
+    //            //        CrowbarAttack = false;
+    //            //    }
+
+    //            //}
+    //        //    if (Input.GetKeyUp(KeyCode.Mouse0))
+    //        //{
+    //        //    CrowbarAttack = false;
+    //        //    Debug.Log(CrowbarAttack);
+    //        //}
+    //    }   
+    //}
 
 
     private void OnCollisionEnter(Collision collision)

@@ -44,11 +44,6 @@ public class Inventory : MonoBehaviour
             itemcloned.transform.localScale = new Vector3(itemcloned.transform.localScale.x*8, itemcloned.transform.localScale.y*8, itemcloned.transform.localScale.z*8) / 2;
             itemcloned.gameObject.transform.parent = ItemHandler.transform;
             itemcloned.transform.localRotation = Quaternion.Euler(MainCamera.transform.localRotation.x, MainCamera.transform.localRotation.y + 180, MainCamera.transform.localRotation.z + 90);
-
-
-            //itemcloned = Objects[0].gameObject;
-            //itemcloned.SetActive(true);
-            //itemcloned.transform.position = new Vector3(campos.transform.position.x, campos.transform.position.y, campos.transform.position.z);
         }
         else if(Input.GetKeyDown(KeyCode.Alpha1) && itemActive)
         {
@@ -83,10 +78,6 @@ public class Inventory : MonoBehaviour
             itemcloned.transform.localScale = new Vector3(itemcloned.transform.localScale.x * 8, itemcloned.transform.localScale.y * 8, itemcloned.transform.localScale.z * 8) / 2;
             itemcloned.gameObject.transform.parent = ItemHandler.transform;
             itemcloned.transform.localRotation = Quaternion.Euler(MainCamera.transform.localRotation.x, MainCamera.transform.localRotation.y + 180, MainCamera.transform.localRotation.z + 90);
-
-            //itemcloned = Objects[2].gameObject;
-            //itemcloned.SetActive(true);
-            //itemcloned.transform.position = new Vector3(campos.transform.position.x, campos.transform.position.y, campos.transform.position.z);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha3) && itemActive)
         {
@@ -102,11 +93,6 @@ public class Inventory : MonoBehaviour
             itemcloned.transform.localScale = new Vector3(itemcloned.transform.localScale.x * 8, itemcloned.transform.localScale.y * 8, itemcloned.transform.localScale.z * 8) / 2;
             itemcloned.gameObject.transform.parent = ItemHandler.transform;
             itemcloned.transform.localRotation = Quaternion.Euler(MainCamera.transform.localRotation.x, MainCamera.transform.localRotation.y + 180, MainCamera.transform.localRotation.z + 90);
-
-
-            //itemcloned = Objects[3].gameObject;
-            //itemcloned.SetActive(true);
-            //itemcloned.transform.position = new Vector3(campos.transform.position.x, campos.transform.position.y, campos.transform.position.z);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha4) && itemActive)
         {

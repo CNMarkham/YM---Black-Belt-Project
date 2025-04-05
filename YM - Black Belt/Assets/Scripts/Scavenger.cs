@@ -20,11 +20,17 @@ public class Scavenger : MonoBehaviour
 
     public int Health;
 
+    private bool Attacking;
+
     Animator animator;
 
     public GameObject ScavengerHealthSlider;
 
     [SerializeField] private Camera camera;
+
+    public GameObject ScavHealthSlider;
+
+    private int RandomizedAnim;
 
     void Start()
     {
@@ -44,6 +50,8 @@ public class Scavenger : MonoBehaviour
 
     void Update()
     {
+        //Debug.Log(Attacking);
+
         ScavengerHealthSlider.transform.rotation = camera.transform.rotation;
 
         ScavengerHealthSlider.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 8, gameObject.transform.position.z);
@@ -57,11 +65,16 @@ public class Scavenger : MonoBehaviour
             if(DistanceToPlayer <= 7f)
             {
                 agent.speed = 0;
-                animator.SetBool("TouchingPlayer", true);
+                if(DistanceToPlayer <= 5.5f)
+                {
+                    RandomizedAnim = Random.Range(1, 3);
+                    Debug.Log(RandomizedAnim);
+                    animator.SetInteger("Random", RandomizedAnim);
+                    animator.SetBool("TouchingPlayer", true);
+                }
             }
             else
             {
-                animator.SetBool("TouchingPlayer", false);
                 MoveTowardsPlayer();
             }
         }
@@ -80,13 +93,34 @@ public class Scavenger : MonoBehaviour
         agent.destination = player.transform.position;
     }
 
+
+    IEnumerator TakeDamage()
+    {
+        yield return new WaitForSeconds(1.9f);
+
+        movement.Health -= Random.Range(50, 100);
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.tag == "Player")
         {
-            Debug.Log("Hit Player");
-            movement.Health -= 25;
+            //RandomizedAnim = Random.Range(1, 3);
+            //Debug.Log(RandomizedAnim);
+            //animator.SetInteger("Random", RandomizedAnim);
+            //animator.SetBool("TouchingPlayer", true);
+            Attacking = true;
+            if(Attacking)
+            {
+                StartCoroutine("TakeDamage");
+            }
         }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        animator.SetBool("TouchingPlayer", false);
+        Attacking = false;
     }
 }
 

@@ -344,6 +344,8 @@ MonoBehaviour:
   ItemSprite: {fileID: 21300012, guid: fd09957580ac4326916010f1f260975b, type: 3}
   player: {fileID: 0}
   scavenger: {fileID: 0}
+  ScavHealth: 0
+  Camera: {fileID: 0}
   animator: {fileID: 0}
 --- !u!1001 &114295777
 PrefabInstance:
@@ -2439,6 +2441,8 @@ MonoBehaviour:
   ItemSprite: {fileID: 21300006, guid: fd09957580ac4326916010f1f260975b, type: 3}
   player: {fileID: 0}
   scavenger: {fileID: 0}
+  ScavHealth: 0
+  Camera: {fileID: 0}
   animator: {fileID: 0}
 --- !u!1 &858522415 stripped
 GameObject:
@@ -2486,6 +2490,8 @@ MonoBehaviour:
   ItemSprite: {fileID: 21300008, guid: fd09957580ac4326916010f1f260975b, type: 3}
   player: {fileID: 0}
   scavenger: {fileID: 0}
+  ScavHealth: 0
+  Camera: {fileID: 0}
   animator: {fileID: 0}
 --- !u!1 &883818981
 GameObject:
@@ -3338,6 +3344,8 @@ MonoBehaviour:
   ItemSprite: {fileID: 21300002, guid: fd09957580ac4326916010f1f260975b, type: 3}
   player: {fileID: 0}
   scavenger: {fileID: 0}
+  ScavHealth: 0
+  Camera: {fileID: 0}
   animator: {fileID: 0}
 --- !u!65 &1439389382
 BoxCollider:
@@ -3481,6 +3489,8 @@ MonoBehaviour:
   ItemSprite: {fileID: 21300010, guid: fd09957580ac4326916010f1f260975b, type: 3}
   player: {fileID: 0}
   scavenger: {fileID: 0}
+  ScavHealth: 0
+  Camera: {fileID: 0}
   animator: {fileID: 0}
 --- !u!1 &1452093280
 GameObject:
@@ -4656,6 +4666,7 @@ MonoBehaviour:
   Health: 0
   ScavengerHealthSlider: {fileID: 682458519}
   camera: {fileID: 963194227}
+  ScavHealthSlider: {fileID: 682458519}
 --- !u!54 &1744191225
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5265,6 +5276,8 @@ MonoBehaviour:
   ItemSprite: {fileID: 21300004, guid: fd09957580ac4326916010f1f260975b, type: 3}
   player: {fileID: 0}
   scavenger: {fileID: 0}
+  ScavHealth: 0
+  Camera: {fileID: 0}
   animator: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
