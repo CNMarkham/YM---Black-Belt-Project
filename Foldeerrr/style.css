@@ -1,0 +1,29 @@
+a{
+    text-decoration-line: none;
+}
+
+h1:hover{
+    color: blue;
+}
+
+h1{
+    color: black;
+}
+
+img{
+    width: 400px;
+    height: 450px;
+    float: right;
+    border: 5px solid palevioletred;
+    opacity: 0.5;
+    margin-right: 350px;
+    margin-top: 125px;
+    filter: brightness(50%);
+}
+
+img:hover{
+    width: 500px;
+    height: 550px;
+    opacity: 1.0;
+    filter: brightness(100%);
+}

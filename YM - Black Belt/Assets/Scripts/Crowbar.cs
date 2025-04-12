@@ -35,7 +35,7 @@ public class Crowbar : ItemDetails, IInteractable
     private bool CrowbarAttack;
 
     [SerializeField] private Animator animator;
-    
+
 
     public void Pickup()
     {
@@ -55,81 +55,48 @@ public class Crowbar : ItemDetails, IInteractable
         CrowbarAttack = false;
     }
 
-    //IEnumerator CrowbarActive()
-    //{
+    IEnumerator CrowbarActive()
+    {
+        CrowbarAttack = true;
+        Debug.Log(CrowbarAttack);
+        Debug.Log("Coroutine Running");
+        RaycastHit Attack;
+        if (Physics.Raycast(Camera.transform.position, Camera.transform.forward, out Attack, 5.5f, LayerMask.GetMask("Monster")))
+        {
+            Debug.Log(CrowbarAttack);
+            ScavHealth -= 25;
+            Debug.Log(ScavHealth);
+            scavenger.ScavHealthSlider.GetComponent<Slider>().value = ScavHealth;
+        }
 
-        //RaycastHit Attack;
-        //if (Physics.Raycast(Camera.transform.position, Camera.transform.forward, out Attack, 5.5f, LayerMask.GetMask("Monster")))
-        //{
-        //    //if(Input.GetKeyDown(KeyCode.Mouse0))
-        //    //{
-        //    //    CrowbarAttack = true;
-        //    //}
-        //    Inventory.itemcloned.GetComponentInChildren<Animator>().SetTrigger("Attack");
-        //    CrowbarAttack = true;
-        //    Debug.Log(CrowbarAttack);
-        //    ScavHealth -= 25;
-        //    Debug.Log(ScavHealth);
-        //    scavenger.ScavHealthSlider.GetComponent<Slider>().value = ScavHealth;
-        //    CrowbarAttack = false;
-        //}
-
-
-
-        //yield return new WaitForSeconds(10f);
-
-        //Debug.Log("Attacking");
-        //CrowbarAttack = true;
-        //yield return new WaitForSeconds(0.2f);
-        //CrowbarAttack = false;
-        //Debug.Log(CrowbarAttack);
-
+        yield return new WaitForSeconds(1.75f);
+        CrowbarAttack = false;
+        Debug.Log(CrowbarAttack);
     }
 
-    //void Update()
-    //{
-    //    Debug.Log(CrowbarAttack);
-    //    Debug.DrawRay(transform.transform.position, Camera.transform.forward * 5.5f, Color.red);
-    //    if (Inventory.itemActive)
-    //    {
-    //        if (Input.GetKeyDown(KeyCode.Mouse0) && !CrowbarAttack)
-    //        {
-    //            //StartCoroutine(CrowbarActive());
-    //        }
-    //            //{
-    //            //    CrowbarAttack = true;
-    //            //    //StartCoroutine(CrowbarActive());
-    //            //    Debug.Log(CrowbarAttack);
-    //            //    Inventory.itemcloned.GetComponentInChildren<Animator>().SetTrigger("Attack");
-    //            //    RaycastHit Attack;
-    //            //    if (Physics.Raycast(Camera.transform.position, Camera.transform.forward, out Attack, 5.5f, LayerMask.GetMask("Monster")))
-    //            //    {
-    //            //        //CrowbarAttack = true;
-    //            //        Debug.Log(CrowbarAttack);
-    //            //        ScavHealth -= 25;
-    //            //        Debug.Log(ScavHealth);
-    //            //        scavenger.ScavHealthSlider.GetComponent<Slider>().value = ScavHealth;
-    //            //        CrowbarAttack = false;
-    //            //    }
-
-    //            //}
-    //        //    if (Input.GetKeyUp(KeyCode.Mouse0))
-    //        //{
-    //        //    CrowbarAttack = false;
-    //        //    Debug.Log(CrowbarAttack);
-    //        //}
-    //    }   
-    //}
+    void Update()
+    {
+        Debug.Log(CrowbarAttack);
+        Debug.DrawRay(transform.transform.position, Camera.transform.forward * 5.5f, Color.red);
+        if (Inventory.itemActive)
+        {
+            if (Input.GetKeyDown(KeyCode.Mouse0) && CrowbarAttack == false)
+            {
+                Inventory.itemcloned.GetComponentInChildren<Animator>().SetTrigger("Attack");
+                StartCoroutine(CrowbarActive());
+            }
+        }
+    }
 
 
     private void OnCollisionEnter(Collision collision)
+{
+    if (collision.gameObject.tag == "Monster")
     {
-        if(collision.gameObject.tag == "Monster")
-        {
-            scavenger = GameObject.FindGameObjectWithTag("Monster").GetComponent<Scavenger>();
-            scavenger.Health -= 50;
-            Debug.Log(scavenger.Health);
-            scavenger.ScavengerHealthSlider.GetComponent<Slider>().value = scavenger.Health;
-        }
+        scavenger = GameObject.FindGameObjectWithTag("Monster").GetComponent<Scavenger>();
+        scavenger.Health -= 50;
+        Debug.Log(scavenger.Health);
+        scavenger.ScavengerHealthSlider.GetComponent<Slider>().value = scavenger.Health;
     }
+}
 }

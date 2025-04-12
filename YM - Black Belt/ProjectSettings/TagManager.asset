@@ -9,6 +9,7 @@ TagManager:
   - Terrain
   - Object
   - Monster
+  - Shop
   layers:
   - Default
   - TransparentFX

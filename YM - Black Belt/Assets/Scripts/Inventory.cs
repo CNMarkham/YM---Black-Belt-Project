@@ -17,6 +17,8 @@ public class Inventory : MonoBehaviour
 
     public bool itemActive;
 
+    public int itemNumber;
+
     public Pickup Pickup;
 
     private Animator animator;
@@ -36,43 +38,72 @@ public class Inventory : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1) && !itemActive)
+        if (Input.GetKeyDown(KeyCode.Alpha1) && !itemActive && Objects[0] != null)
         {
             itemActive = true;
-            Vector3 newDirection = new Vector3(campos.transform.position.x, campos.transform.position.y, campos.transform.position.z);
-            itemcloned = Instantiate(crowbar.gameObject, newDirection, Quaternion.Euler(MainCamera.transform.localRotation.x, MainCamera.transform.localRotation.y + 180, MainCamera.transform.localRotation.z + 90));
-            itemcloned.transform.localScale = new Vector3(itemcloned.transform.localScale.x*8, itemcloned.transform.localScale.y*8, itemcloned.transform.localScale.z*8) / 2;
-            itemcloned.gameObject.transform.parent = ItemHandler.transform;
-            itemcloned.transform.localRotation = Quaternion.Euler(MainCamera.transform.localRotation.x, MainCamera.transform.localRotation.y + 180, MainCamera.transform.localRotation.z + 90);
-        }
-        else if(Input.GetKeyDown(KeyCode.Alpha1) && itemActive)
-        {
-            itemActive = false;
-            Destroy(itemcloned);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha2) && !itemActive)
-        {
-            itemActive = true;
+            itemNumber = 0;
             Vector3 newDirection = new Vector3(campos.transform.position.x, campos.transform.position.y, campos.transform.position.z);
             itemcloned = Instantiate(crowbar.gameObject, newDirection, Quaternion.Euler(MainCamera.transform.localRotation.x, MainCamera.transform.localRotation.y + 180, MainCamera.transform.localRotation.z + 90));
             itemcloned.transform.localScale = new Vector3(itemcloned.transform.localScale.x * 8, itemcloned.transform.localScale.y * 8, itemcloned.transform.localScale.z * 8) / 2;
             itemcloned.gameObject.transform.parent = ItemHandler.transform;
             itemcloned.transform.localRotation = Quaternion.Euler(MainCamera.transform.localRotation.x, MainCamera.transform.localRotation.y + 180, MainCamera.transform.localRotation.z + 90);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha1) && itemActive)
+        {
+            itemActive = false;
+            itemNumber = 7;
+            Destroy(itemcloned);
+            Debug.Log("Destroyed held-hand");
+        }
+        else if(itemActive == true)
+        {
+            if (Input.GetKeyDown(KeyCode.G))
+            {
 
-            //itemcloned = Objects[1].gameObject;
-            //itemcloned.SetActive(true);
-            //itemcloned.transform.position = new Vector3(campos.transform.position.x, campos.transform.position.y, campos.transform.position.z);
+                Destroy(itemcloned);
+                itemActive = false;
+                Objects[itemNumber].SetActive(true);
+                Objects[itemNumber].transform.position = new Vector3(transform.position.x, transform.position.y - 1.5f, transform.position.z);
+                Objects[itemNumber].GetComponent<Rigidbody>().isKinematic = true;
+                Objects[itemNumber] = null;
+                InventorySlots[itemNumber].GetComponent<Image>().sprite = null;
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2) && !itemActive && Objects[1] != null)
+        {
+            itemActive = true;
+            itemNumber = 1;
+            Vector3 newDirection = new Vector3(campos.transform.position.x, campos.transform.position.y, campos.transform.position.z);
+            itemcloned = Instantiate(crowbar.gameObject, newDirection, Quaternion.Euler(MainCamera.transform.localRotation.x, MainCamera.transform.localRotation.y + 180, MainCamera.transform.localRotation.z + 90));
+            itemcloned.transform.localScale = new Vector3(itemcloned.transform.localScale.x * 8, itemcloned.transform.localScale.y * 8, itemcloned.transform.localScale.z * 8) / 2;
+            itemcloned.gameObject.transform.parent = ItemHandler.transform;
+            itemcloned.transform.localRotation = Quaternion.Euler(MainCamera.transform.localRotation.x, MainCamera.transform.localRotation.y + 180, MainCamera.transform.localRotation.z + 90);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2) && itemActive)
         {
             itemActive = false;
+            itemNumber = 7;
             Destroy(itemcloned);
         }
+        else if (itemActive == true)
+        {
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                Destroy(itemcloned);
+                itemActive = false;
+                Objects[itemNumber].SetActive(true);
+                Objects[itemNumber].transform.position = new Vector3(transform.position.x, transform.position.y - 1.5f, transform.position.z);
+                Objects[itemNumber].GetComponent<Rigidbody>().isKinematic = true;
+                Objects[itemNumber] = null;
+                InventorySlots[itemNumber].GetComponent<Image>().sprite = null;
+            }
+        }
 
-        if (Input.GetKeyDown(KeyCode.Alpha3) && !itemActive)
+        if (Input.GetKeyDown(KeyCode.Alpha3) && !itemActive && Objects[2] != null)
         {
             itemActive = true;
+            itemNumber = 2;
             Vector3 newDirection = new Vector3(campos.transform.position.x, campos.transform.position.y, campos.transform.position.z);
             itemcloned = Instantiate(crowbar.gameObject, newDirection, Quaternion.Euler(MainCamera.transform.localRotation.x, MainCamera.transform.localRotation.y + 180, MainCamera.transform.localRotation.z + 90));
             itemcloned.transform.localScale = new Vector3(itemcloned.transform.localScale.x * 8, itemcloned.transform.localScale.y * 8, itemcloned.transform.localScale.z * 8) / 2;
@@ -82,12 +113,24 @@ public class Inventory : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Alpha3) && itemActive)
         {
             itemActive = false;
+            itemNumber = 7;
             Destroy(itemcloned);
         }
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            Destroy(itemcloned);
+            itemActive = false;
+            Objects[itemNumber].SetActive(true);
+            Objects[itemNumber].transform.position = new Vector3(transform.position.x, transform.position.y - 1.5f, transform.position.z);
+            Objects[itemNumber].GetComponent<Rigidbody>().isKinematic = true;
+            Objects[itemNumber] = null;
+            InventorySlots[itemNumber].GetComponent<Image>().sprite = null;
+        }
 
-        if (Input.GetKeyDown(KeyCode.Alpha4) && !itemActive)
+        if (Input.GetKeyDown(KeyCode.Alpha4) && !itemActive && Objects[3] != null)
         {
             itemActive = true;
+            itemNumber = 3;
             Vector3 newDirection = new Vector3(campos.transform.position.x, campos.transform.position.y, campos.transform.position.z);
             itemcloned = Instantiate(crowbar.gameObject, newDirection, Quaternion.Euler(MainCamera.transform.localRotation.x, MainCamera.transform.localRotation.y + 180, MainCamera.transform.localRotation.z + 90));
             itemcloned.transform.localScale = new Vector3(itemcloned.transform.localScale.x * 8, itemcloned.transform.localScale.y * 8, itemcloned.transform.localScale.z * 8) / 2;
@@ -97,15 +140,21 @@ public class Inventory : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Alpha4) && itemActive)
         {
             itemActive = false;
+            itemNumber = 7;
             Destroy(itemcloned);
         }
-
-
-
-
-        if (itemActive)
+        else if (itemActive == true)
         {
-
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                Destroy(itemcloned);
+                itemActive = false;
+                Objects[itemNumber].SetActive(true);
+                Objects[itemNumber].transform.position = new Vector3(transform.position.x, transform.position.y - 1.5f, transform.position.z);
+                Objects[itemNumber].GetComponent<Rigidbody>().isKinematic = true;
+                Objects[itemNumber] = null;
+                InventorySlots[itemNumber].GetComponent<Image>().sprite = null;
+            }
         }
     }
 
