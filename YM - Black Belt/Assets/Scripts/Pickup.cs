@@ -18,9 +18,9 @@ public class Pickup : MonoBehaviour
 
     public Inventory Inventory;
 
+    public GameObject ToggleButton;
 
-    
-
+    private Vector3 LocalScale;
 
     void Start()
     {
@@ -29,6 +29,10 @@ public class Pickup : MonoBehaviour
         ObjectPickupable.enabled = false;
         ObjectPrice.enabled = false;
         ObjectBox.SetActive(false);
+
+        ToggleButton.SetActive(false);
+
+        LocalScale = new Vector3(ObjectBox.transform.localScale.x, ObjectBox.transform.localScale.y, ObjectBox.transform.localScale.z);
     }
 
     void Update()
@@ -43,14 +47,16 @@ public class Pickup : MonoBehaviour
             {
                 if (Inventory.AddtoInventory(ObjectDetected.collider.gameObject))
                 {
-                    //ObjectDetected.transform.localScale = new Vector3(ObjectDetected.transform.localScale.x, ObjectDetected.transform.localScale.y, ObjectDetected.transform.localScale.z) / 2;
-                    ObjectDetected.collider.gameObject.SetActive(false);                }
+                    ObjectDetected.collider.gameObject.SetActive(false);                
+                }
             }
 
             ObjectName.enabled = true;
+            ObjectName.fontSize = 15;
             ObjectDescription.enabled = true;
             ObjectPickupable.enabled = true;
             ObjectBox.SetActive(true);
+            ObjectBox.transform.localScale = LocalScale;
             ObjectPrice.enabled = true;
             ObjectName.text = "Object: " + ObjectDetected.collider.GetComponent<IInteractable>().itemName;
             ObjectDescription.text = "Description:                                                                     " + ObjectDetected.collider.GetComponent<IInteractable>().itemDescription;
@@ -63,6 +69,29 @@ public class Pickup : MonoBehaviour
             ObjectPickupable.enabled = false;
             ObjectBox.SetActive(false);
             ObjectPrice.enabled = false;    
+        }
+
+        RaycastHit ShopDetected;
+        if (Physics.Raycast(Camera.transform.position, Camera.transform.forward, out ShopDetected, 10f, LayerMask.GetMask("Shop")))
+        {
+            ToggleButton.SetActive(true);
+            ObjectBox.SetActive(true);
+            //ObjectBox.transform.localScale = new Vector3(ObjectBox.transform.localScale.x, ObjectBox.transform.localScale.y, ObjectBox.transform.localScale.z);
+            ObjectName.enabled = true;
+            ObjectName.text = "Open Shop";
+            ObjectName.fontSize = 18;
+
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                ToggleButton.SetActive(false);
+                ObjectBox.SetActive(false);
+                ObjectName.enabled = false;
+            }
+
+        }
+        else
+        {
+            ToggleButton.SetActive(false);
         }
 
     }

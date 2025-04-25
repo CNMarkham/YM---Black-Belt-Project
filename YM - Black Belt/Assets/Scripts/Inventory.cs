@@ -59,12 +59,11 @@ public class Inventory : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.G))
             {
-
                 Destroy(itemcloned);
                 itemActive = false;
                 Objects[itemNumber].SetActive(true);
                 Objects[itemNumber].transform.position = new Vector3(transform.position.x, transform.position.y - 1.5f, transform.position.z);
-                Objects[itemNumber].GetComponent<Rigidbody>().isKinematic = true;
+                Objects[itemNumber].GetComponent<Rigidbody>().isKinematic = false;
                 Objects[itemNumber] = null;
                 InventorySlots[itemNumber].GetComponent<Image>().sprite = null;
             }
@@ -94,7 +93,7 @@ public class Inventory : MonoBehaviour
                 itemActive = false;
                 Objects[itemNumber].SetActive(true);
                 Objects[itemNumber].transform.position = new Vector3(transform.position.x, transform.position.y - 1.5f, transform.position.z);
-                Objects[itemNumber].GetComponent<Rigidbody>().isKinematic = true;
+                Objects[itemNumber].GetComponent<Rigidbody>().isKinematic = false;
                 Objects[itemNumber] = null;
                 InventorySlots[itemNumber].GetComponent<Image>().sprite = null;
             }
@@ -121,8 +120,8 @@ public class Inventory : MonoBehaviour
             Destroy(itemcloned);
             itemActive = false;
             Objects[itemNumber].SetActive(true);
-            Objects[itemNumber].transform.position = new Vector3(transform.position.x, transform.position.y - 1.5f, transform.position.z);
-            Objects[itemNumber].GetComponent<Rigidbody>().isKinematic = true;
+            Objects[itemNumber].transform.position = new Vector3(transform.position.x, transform.position.y - 2.5f, transform.position.z);
+            Objects[itemNumber].GetComponent<Rigidbody>().isKinematic = false;
             Objects[itemNumber] = null;
             InventorySlots[itemNumber].GetComponent<Image>().sprite = null;
         }
@@ -151,7 +150,7 @@ public class Inventory : MonoBehaviour
                 itemActive = false;
                 Objects[itemNumber].SetActive(true);
                 Objects[itemNumber].transform.position = new Vector3(transform.position.x, transform.position.y - 1.5f, transform.position.z);
-                Objects[itemNumber].GetComponent<Rigidbody>().isKinematic = true;
+                Objects[itemNumber].GetComponent<Rigidbody>().isKinematic = false;
                 Objects[itemNumber] = null;
                 InventorySlots[itemNumber].GetComponent<Image>().sprite = null;
             }

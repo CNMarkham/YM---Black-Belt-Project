@@ -148,4 +148,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 0}
   player: {fileID: 0}
+  scavenger: {fileID: 0}
+  ScavHealth: 0
+  Camera: {fileID: 0}
   animator: {fileID: 0}

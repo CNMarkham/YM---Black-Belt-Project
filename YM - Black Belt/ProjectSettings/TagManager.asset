@@ -10,6 +10,7 @@ TagManager:
   - Object
   - Monster
   - Shop
+  - Sell
   layers:
   - Default
   - TransparentFX
@@ -20,8 +21,8 @@ TagManager:
   - Object
   - Monster
   - Player
-  - 
-  - 
+  - Shop
+  - Button
   - 
   - 
   - 
