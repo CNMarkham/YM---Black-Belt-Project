@@ -22,6 +22,8 @@ public class Pickup : MonoBehaviour
 
     private Vector3 LocalScale;
 
+    public Buying Buying;
+
     void Start()
     {
         ObjectName.enabled = false;
@@ -76,7 +78,6 @@ public class Pickup : MonoBehaviour
         {
             ToggleButton.SetActive(true);
             ObjectBox.SetActive(true);
-            //ObjectBox.transform.localScale = new Vector3(ObjectBox.transform.localScale.x, ObjectBox.transform.localScale.y, ObjectBox.transform.localScale.z);
             ObjectName.enabled = true;
             ObjectName.text = "Open Shop";
             ObjectName.fontSize = 18;
@@ -86,11 +87,12 @@ public class Pickup : MonoBehaviour
                 ToggleButton.SetActive(false);
                 ObjectBox.SetActive(false);
                 ObjectName.enabled = false;
+                Buying.ShopActive = true;
             }
-
         }
         else
         {
+            Buying.ShopActive = false;
             ToggleButton.SetActive(false);
         }
 

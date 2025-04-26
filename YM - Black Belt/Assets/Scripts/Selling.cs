@@ -9,7 +9,7 @@ public class Selling : MonoBehaviour
 
     private int price;
 
-    private int TotalMoney;
+    public int TotalMoney;
 
     public Text Money;
 
