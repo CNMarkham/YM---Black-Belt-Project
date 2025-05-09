@@ -74,7 +74,7 @@ public class Pickup : MonoBehaviour
         }
 
         RaycastHit ShopDetected;
-        if (Physics.Raycast(Camera.transform.position, Camera.transform.forward, out ShopDetected, 10f, LayerMask.GetMask("Shop")))
+        if (Physics.Raycast(Camera.transform.position, Camera.transform.forward, out ShopDetected, 13f, LayerMask.GetMask("Shop")))
         {
             ToggleButton.SetActive(true);
             ObjectBox.SetActive(true);

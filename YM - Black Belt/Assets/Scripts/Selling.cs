@@ -36,6 +36,10 @@ public class Selling : MonoBehaviour
                 TotalMoney = TotalMoney + price;
                 Money.text = "$" + TotalMoney;
             }
+            //else if ()
+            //{
+
+            //}
         }
     }
 }

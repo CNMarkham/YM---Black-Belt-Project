@@ -39,7 +39,7 @@ public class PlayerUI : MonoBehaviour
 
         if(Health <= 0)
         {
-            //SceneManager.LoadScene(0);
+            //SceneManager.LoadScene(1);
         }
 
     }

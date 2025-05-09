@@ -24,6 +24,9 @@ public class Movement : MonoBehaviour
     private bool StaminaToggle;
     private float StaminaRegenTime;
 
+    public int healthIncrement;
+    public int staminaIncrement;
+
 
     void Start()
     {
