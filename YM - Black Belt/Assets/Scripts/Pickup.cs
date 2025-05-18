@@ -81,9 +81,9 @@ public class Pickup : MonoBehaviour
             ObjectName.enabled = true;
             ObjectName.text = "Open Shop";
             ObjectName.fontSize = 18;
-
-            if (Input.GetKeyDown(KeyCode.X))
+            if (Input.GetKeyDown(KeyCode.X) && !Buying.ShopActive)
             {
+                Buying.OpenShopUI();
                 ToggleButton.SetActive(false);
                 ObjectBox.SetActive(false);
                 ObjectName.enabled = false;
